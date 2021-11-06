@@ -49,6 +49,7 @@ export const arrivalsFilter = (data, formData) =>
     );
   });
 
+export const pathName = window.location.pathname;
 // term терминал
 //  actual  расписание
 // airportToID.city  направление
