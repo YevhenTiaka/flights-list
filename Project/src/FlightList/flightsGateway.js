@@ -30,37 +30,23 @@ export const fetchFlights = () =>
 
 export const departuresFilter = (data, formData) =>
   data.body.departure.filter(el => {
-    const elData = moment(new Date(el.actual)).format('DD-MM-YYYY');
+    const elData = moment(new Date(el.timeDepShedule)).format('DD-MM-YYYY');
     const currentCity = el['airportToID.city'].toLowerCase();
     const flightNumber = el.codeShareData[0].codeShare.toLowerCase();
     return (
-      (flightNumber.includes(formData) && elData === currentDay) ||
-      (currentCity.includes(formData) && elData === currentDay)
+      (flightNumber.includes(formData.toLowerCase()) && elData === currentDay) ||
+      (currentCity.includes(formData.toLowerCase()) && elData === currentDay)
     );
   });
 export const arrivalsFilter = (data, formData) =>
   data.body.arrival.filter(el => {
-    const elData = moment(new Date(el.actual)).format('DD-MM-YYYY');
+    const elData = moment(new Date(el.timeToStand)).format('DD-MM-YYYY');
     const currentCity = el['airportFromID.city'].toLowerCase();
     const flightNumber = el.codeShareData[0].codeShare.toLowerCase();
     return (
-      (flightNumber.includes(formData) && elData === currentDay) ||
-      (currentCity.includes(formData) && elData === currentDay)
+      (flightNumber.includes(formData.toLowerCase()) && elData === currentDay) ||
+      (currentCity.includes(formData.toLowerCase()) && elData === currentDay)
     );
   });
 
 export const pathName = window.location.pathname;
-// term терминал
-//  actual  расписание
-// airportToID.city  направление
-//  timeTakeOfFact статус
-// airline.name авиакомпания
-// codeShareData рейс
-
-// body.departure.term;
-// body.departure.actual;
-// body.departure.airportToId.city;
-// body.departure.timeTakeofFact;
-// body.departure.airline.en.name;
-// body.departure.codeShareData[0].codeShare;
-// body.departure.logo

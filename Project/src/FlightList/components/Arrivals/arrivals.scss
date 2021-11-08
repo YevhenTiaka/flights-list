@@ -1,0 +1,56 @@
+.flights {
+  width: 1140px;
+  background-color: #fff;
+  border-spacing: 0;
+  margin-bottom: 100px;
+
+  &-nav_item {
+    padding-top: 30px;
+    padding: 12px;
+    color: #95989a;
+    text-align: left;
+    &__term {
+      padding: 12px;
+      padding-top: 30px;
+      text-align: center;
+      color: #95989a;
+    }
+  }
+  &-list {
+    &:hover {
+      box-shadow: -1px 9px 16px 0px rgba(34, 60, 80, 0.51);
+    }
+    &:nth-child(even) {
+      background-color: rgba(0, 102, 135, 0.1);
+    }
+
+    &_item {
+      height: 60px;
+      padding: 12px;
+      font-size: 18px;
+      text-align: left;
+      &__terminal {
+        text-align: center;
+        &-skin {
+          font-weight: 700;
+          border-radius: 50%;
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          text-align: center;
+          line-height: 35px;
+          font-size: 22px;
+        }
+      }
+      &__box {
+        display: flex;
+        align-items: center;
+      }
+      &__logo {
+        padding: 5px;
+        width: 60px;
+        height: 40px;
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import moment from 'moment';
 import * as flightsGateway from './flightsGateway';
-import { currentDay } from './flightsGateway';
 
 export const ARRIVALS_FLIGHTS_LIST = 'ARRIVALS_FLIGHTS_LIST';
 export const DEPARTURES_FLIGHTS_LIST = 'DEPARTURES_FLIGHTS_LIST';
@@ -32,8 +31,7 @@ export const getDeparturesFlightsList = () => {
       .then(data =>
         data.body.departure.filter(
           el =>
-            moment(new Date(el.timeDepExpectCalc)).format('DD-MM-YYYY') ===
-            flightsGateway.currentDay,
+            moment(new Date(el.timeDepShedule)).format('DD-MM-YYYY') === flightsGateway.currentDay,
         ),
       )
       .then(flightsListData => {
@@ -49,8 +47,7 @@ export const getArrivalsFlightsList = () => {
       .fetchFlights()
       .then(data =>
         data.body.arrival.filter(
-          el =>
-            moment(new Date(el.timeLandCalc)).format('DD-MM-YYYY') === flightsGateway.currentDay,
+          el => moment(new Date(el.timeToStand)).format('DD-MM-YYYY') === flightsGateway.currentDay,
         ),
       )
       .then(flightsListData => {
