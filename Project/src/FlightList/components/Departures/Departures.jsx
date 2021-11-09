@@ -8,11 +8,9 @@ import './departures.scss';
 
 const Departures = ({ flightsList, searchDataDeparture }) => {
   const list = searchDataDeparture ?? flightsList;
-
   const notFound = searchDataDeparture !== null ? <NotFound /> : null;
 
   const params = new URLSearchParams(window.location.search);
-
   const search = params.get('search');
 
   if (search && !searchDataDeparture && flightsList) {

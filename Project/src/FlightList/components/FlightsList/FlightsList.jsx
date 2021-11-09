@@ -12,39 +12,38 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const [searchDataDeparture, setSearchDataDeparture] = useState(null);
   const [searchDataArrival, setSearchDataArrival] = useState(null);
 
+  const [depStatus, setDepStatus] = useState('active');
+  const [arrStatus, setArrStatus] = useState('disabled');
+
+  const depTheme = event => {
+    if (!event.target.className.includes('active')) {
+      setArrStatus('disabled');
+      setDepStatus('active');
+    }
+  };
+
+  const arrTheme = event => {
+    if (!event.target.className.includes('active')) {
+      setArrStatus('active');
+      setDepStatus('disabled');
+    }
+  };
+
   const params = new URLSearchParams(window.location.search);
   const search = params.get('search');
 
-  // const linkStyleDep = path => {
-  //   const departuresStyles = { background: '#007bff', color: '#fff' };
-  //   const arrivalsStyles = { background: '#fff', color: '#007bff' };
-  //   if (path === '/departures') {
-  //     return departuresStyles;
-  //   }
-  //   if (path === '/arrivals') {
-  //     return arrivalsStyles;
-  //   }
-  // };
-
-  // const linkStyleArr = path => {
-  //   const departuresStyles = { background: '#fff', color: '#007bff' };
-  //   const arrivalsStyles = { background: '#007bff', color: '#fff' };
-  //   if (path === '/departures') {
-  //     return departuresStyles;
-  //   }
-  //   if (path === '/arrivals') {
-  //     return arrivalsStyles;
-  //   }
-  // };
-
   useEffect(() => {
     const pathName = window.location.pathname;
+
     if (pathName === '/departures') {
       getDeparturesFlightsList();
+      setDepStatus('active');
+      setArrStatus('disabled');
     }
-
     if (pathName === '/arrivals') {
       getArrivalsFlightsList();
+      setDepStatus('disabled');
+      setArrStatus('active');
     }
     if (search) {
       flightsGateway.fetchFlights().then(data => {
@@ -66,24 +65,22 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
         />
         <div className="nav-link">
           <Link
-            // style={linkStyleDep(window.location.pathname)}
             to={departureLink}
-            className="nav-link__item-dep"
+            className={`nav-link__item-dep nav-link__item-dep__${depStatus} `}
             onClick={getDeparturesFlightsList}
+            onClickCapture={event => depTheme(event)}
           >
-            <i className="fas fa-plane-departure">
-              <span className="nav-link_direction__dep">Виліт</span>
-            </i>
+            <i className="fas fa-plane-departure" />
+            Виліт
           </Link>
           <Link
-            // style={linkStyleArr(window.location.pathname)}
             to={arrivalLink}
-            className="nav-link__item-arr"
+            className={`nav-link__item-arr nav-link__item-arr__${arrStatus} `}
             onClick={getArrivalsFlightsList}
+            onClickCapture={event => arrTheme(event)}
           >
-            <i className="fas fa-plane-arrival arr_link">
-              <span className="nav-link_direction__arr">Приліт</span>
-            </i>
+            <i className="fas fa-plane-arrival" />
+            Приліт
           </Link>
         </div>
         <div className="tabs-container">

@@ -11,6 +11,7 @@ export const statusFunction = (status, time) => {
   if (status === 'CK') return 'Реєстрація';
   if (status === 'CC') return 'Реєстрація закінчена';
   if (status === 'BD') return 'Посадка';
+  if (status === 'DL') return 'Затримується';
   if (status === 'GC') return 'Посадка закінчена';
   if (status === 'DP' && !time) {
     return 'Вилетів';
@@ -38,6 +39,7 @@ export const departuresFilter = (data, formData) =>
       (currentCity.includes(formData.toLowerCase()) && elData === currentDay)
     );
   });
+
 export const arrivalsFilter = (data, formData) =>
   data.body.arrival.filter(el => {
     const elData = moment(new Date(el.timeToStand)).format('DD-MM-YYYY');

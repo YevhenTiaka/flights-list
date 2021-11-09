@@ -9,8 +9,10 @@ import './arrivals.scss';
 const Arrivals = ({ flightsList, searchDataArrival }) => {
   const list = searchDataArrival ?? flightsList;
   const notFound = searchDataArrival !== null ? <NotFound /> : null;
+
   const params = new URLSearchParams(window.location.search);
   const search = params.get('search');
+
   if (search && !searchDataArrival && flightsList) {
     return null;
   }
@@ -30,7 +32,6 @@ const Arrivals = ({ flightsList, searchDataArrival }) => {
       </thead>
       {list.length
         ? list.map(el => {
-            console.log(el);
             const { term, timeLandFact, status, timeToStand } = el;
             const city = el['airportFromID.city'];
             const company = el.airline.ua.name;

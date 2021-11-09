@@ -31,6 +31,7 @@ const FormData = ({ setSearchDataDeparture, setSearchDataArrival }) => {
     });
     history.push(link);
   };
+
   return (
     <div className="form">
       <div className="form-container">
@@ -44,7 +45,6 @@ const FormData = ({ setSearchDataDeparture, setSearchDataArrival }) => {
             placeholder="Номер рейсу або місто"
             onChange={handleChange}
           />
-
           <button className="form-submit_btn" type="submit">
             Знайти
           </button>
