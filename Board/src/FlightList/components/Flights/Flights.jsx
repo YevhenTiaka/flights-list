@@ -4,16 +4,16 @@ import { flightsListSelector } from '../../flightsList.selectors';
 import { statusFunction, formatTime } from '../../flightsGateway';
 import NotFound from '../NotFound/NotFound';
 import terminalStyles from '../../styles/flightsStyles';
-import './arrivals.scss';
+import './Flights.scss';
 
-const Arrivals = ({ flightsList, searchDataArrival }) => {
-  const list = searchDataArrival ?? flightsList;
-  const notFound = searchDataArrival !== null ? <NotFound /> : null;
+const Flights = ({ flightsList, searchData }) => {
+  const list = searchData ?? flightsList;
+  const notFound = searchData !== null ? <NotFound /> : null;
 
   const params = new URLSearchParams(window.location.search);
   const search = params.get('search');
 
-  if (search && !searchDataArrival && flightsList) {
+  if (search && !searchData && flightsList) {
     return null;
   }
   const display = list.length ? null : { display: 'none' };
@@ -24,7 +24,7 @@ const Arrivals = ({ flightsList, searchDataArrival }) => {
         <tr>
           <th className="flights-nav_item__term">Термiнал</th>
           <th className="flights-nav_item">Розклад</th>
-          <th className="flights-nav_item">Прилітає з</th>
+          <th className="flights-nav_item">Напрямок</th>
           <th className="flights-nav_item">Статус</th>
           <th className="flights-nav_item">Авiакомпанiя</th>
           <th className="flights-nav_item">Рейс</th>
@@ -32,11 +32,14 @@ const Arrivals = ({ flightsList, searchDataArrival }) => {
       </thead>
       {list.length
         ? list.map(el => {
-            const { term, timeLandFact, status, timeToStand } = el;
-            const city = el['airportFromID.city'];
+            const { term, timeLandFact, status, timeToStand, timeTakeofFact } = el;
+            const cityArrival = el['airportFromID.city'];
             const company = el.airline.ua.name;
             const flightNumber = el.codeShareData[0].codeShare;
             const logo = el.codeShareData[0].airline.en.logoSmallName;
+            const cityDeparture = el['airportToID.city'];
+
+            const checkCity = cityDeparture ? timeTakeofFact : timeLandFact;
 
             return (
               <tbody className="flights-list" key={el.ID}>
@@ -47,11 +50,9 @@ const Arrivals = ({ flightsList, searchDataArrival }) => {
                     </span>
                   </td>
                   <td className="flights-list_item">{formatTime(timeToStand)}</td>
-                  <td className="flights-list_item">{city}</td>
+                  <td className="flights-list_item">{cityArrival || cityDeparture}</td>
                   <td>
-                    <span className="flights-list_item">
-                      {statusFunction(status, timeLandFact)}
-                    </span>
+                    <span className="flights-list_item">{statusFunction(status, checkCity)}</span>
                   </td>
                   <td>
                     <div className="flights-list_item__box">
@@ -72,4 +73,4 @@ const Arrivals = ({ flightsList, searchDataArrival }) => {
 const mapState = state => ({
   flightsList: flightsListSelector(state),
 });
-export default connect(mapState)(Arrivals);
+export default connect(mapState)(Flights);

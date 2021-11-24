@@ -2,19 +2,12 @@
   width: 1140px;
   background-color: #fff;
   border-spacing: 0;
+  margin-bottom: 100px;
 
   &-nav_item {
     padding: 12px;
-    padding-top: 30px;
-
     color: #95989a;
     text-align: left;
-    &__term {
-      padding: 12px;
-      padding-top: 30px;
-      text-align: center;
-      color: #95989a;
-    }
   }
   &-list {
     &:hover {
@@ -33,7 +26,6 @@
         text-align: center;
         &-skin {
           font-weight: 700;
-
           border-radius: 50%;
           display: inline-block;
           width: 40px;

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FormData from '../FormData/FormData';
-import Arrivals from '../Arrivals/Arrivals';
-import Departures from '../Departures/Departures';
+import Flights from '../Flights/Flights';
 import * as flightsGateway from '../../flightsGateway';
 import * as flightsActions from '../../flights.actions';
 import './flightsList.scss';
@@ -32,9 +31,9 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const params = new URLSearchParams(window.location.search);
   const search = params.get('search');
 
-  useEffect(() => {
-    const pathName = window.location.pathname;
+  const { pathName } = useLocation();
 
+  useEffect(() => {
     if (pathName === '/departures') {
       getDeparturesFlightsList();
       setDepStatus('active');
@@ -85,10 +84,10 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
         </div>
         <div className="tabs-container">
           <Route exact path="/departures">
-            <Departures searchDataDeparture={searchDataDeparture} />
+            <Flights searchData={searchDataDeparture} />
           </Route>
           <Route path="/arrivals">
-            <Arrivals searchDataArrival={searchDataArrival} />
+            <Flights searchData={searchDataArrival} />
           </Route>
         </div>
       </div>
