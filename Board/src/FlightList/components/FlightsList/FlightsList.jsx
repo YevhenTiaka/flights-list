@@ -31,19 +31,17 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const params = new URLSearchParams(window.location.search);
   const search = params.get('search');
 
-  const { pathName } = useLocation();
-
   useEffect(() => {
-    if (pathName === '/departures') {
-      getDeparturesFlightsList();
-      setDepStatus('active');
-      setArrStatus('disabled');
-    }
-    if (pathName === '/arrivals') {
-      getArrivalsFlightsList();
-      setDepStatus('disabled');
-      setArrStatus('active');
-    }
+    // if (pathName === '/departures') {
+    //   getDeparturesFlightsList();
+    //   setDepStatus('active');
+    //   setArrStatus('disabled');
+    // }
+    // if (pathName === '/arrivals') {
+    //   getArrivalsFlightsList();
+    //   setDepStatus('disabled');
+    //   setArrStatus('active');
+    // }
     if (search) {
       flightsGateway.fetchFlights().then(data => {
         setSearchDataDeparture(flightsGateway.departuresFilter(data, search));
