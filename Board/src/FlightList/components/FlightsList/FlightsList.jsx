@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route, useLocation } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FormData from '../FormData/FormData';
 import Flights from '../Flights/Flights';
@@ -32,16 +32,6 @@ const FlightsList = ({ getDeparturesFlightsList, getArrivalsFlightsList }) => {
   const search = params.get('search');
 
   useEffect(() => {
-    // if (pathName === '/departures') {
-    //   getDeparturesFlightsList();
-    //   setDepStatus('active');
-    //   setArrStatus('disabled');
-    // }
-    // if (pathName === '/arrivals') {
-    //   getArrivalsFlightsList();
-    //   setDepStatus('disabled');
-    //   setArrStatus('active');
-    // }
     if (search) {
       flightsGateway.fetchFlights().then(data => {
         setSearchDataDeparture(flightsGateway.departuresFilter(data, search));
